@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Clicker</title>
+    <style>
+        /* Center the main container in the middle of the page */
+        #container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000; /* Ensure it's on top */
+        }
+        #counter {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        #button {
+            cursor: pointer;
+            width: 100px; /* Adjust the size as needed */
+            height: 100px; /* Adjust the size as needed */
+        }
+        /* Style the achievements list */
+        #achievements-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            color: #000; /* Set text color to black */
+        }
+        #achievements-container h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        #achievements {
+            list-style-type: none;
+            padding: 0;
+        }
+        #achievements li {
+            margin-bottom: 10px;
+        }
+        /* Wiggle animation */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        .wiggle {
+            animation: wiggle 0.2s;
+        }
+        /* Background and text color */
+        body {
+            background-color: #555555; /* Dark grey background */
+            color: #fff; /* White text */
+        }
+        /* Bottom left text */
+        #bottom-left-text {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container for the counter and button -->
+    <div id="container">
+        <div id="counter">Clicks: 0</div>
+        <img id="button" src="https://i.postimg.cc/FRfFX7gr/creb.png" alt="Click Me" width="165" height="130">
+    </div>
+
+    <!-- Achievements container -->
+    <div id="achievements-container">
+        <h2>Achievements</h2>
+        <ul id="achievements">
+            <!-- Achievements will be dynamically added here -->
+        </ul>
+    </div>
+
+<div id="bottom-left-text">Assets used do not belong to me and are owned by the <a href="https://foundation.rust-lang.org"/> Rust foundation.</a></div>
+
+    <script>
+        (function() {
+            // Initialize click count and achievements
+            let clickCount = 0;
+            const achievements = [
+                { milestone: 1, text: "A New Adventure - 1 click" },
+                { milestone: 100, text: "Rookie - 100 clicks" },
+                { milestone: 300, text: "Finger hurt yet? - 300 clicks" },
+                { milestone: 500, text: "Dedicated - 500 clicks" },
+                { milestone: 1000, text: "You done yet? - 1000 clicks" },
+                { milestone: 5000, text: "Please go outside - 5000 clicks" },
+                { milestone: 10000, text: "My friend, this is just a demo - 10,000 clicks??" },
+                { milestone: 15000, text: "Why must you insist on doing this? - 15,000 clicks" },
+                { milestone: 20000, text: "Dont do this to yourself - 20,000 clicks" },
+                { milestone: 20500, text: "Do you have a therapist yet? - 20,500 clicks" },
+                { milestone: 30000, text: "Alright, its time to get off. - 30,000 clicks" }
+            ];
+
+            // Get references to the counter, button, and achievements elements
+            const counter = document.getElementById('counter');
+            const button = document.getElementById('button');
+            const achievementsList = document.getElementById('achievements');
+
+            // Function to update achievements list
+            function updateAchievements() {
+                // Clear previous achievements
+                achievementsList.innerHTML = '';
+
+                // Add achievements based on click count
+                for (const achievement of achievements) {
+                    if (clickCount >= achievement.milestone) {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = achievement.text;
+                        achievementsList.appendChild(listItem);
+                    }
+                }
+            }
+
+            // Add click event listener to button
+            button.addEventListener('click', function() {
+                clickCount++;
+                counter.textContent = 'Clicks: ' + clickCount;
+                updateAchievements();
+
+                // Add wiggle class to button
+                button.classList.add('wiggle');
+
+                // Remove wiggle class after animation ends
+                setTimeout(() => {
+                    button.classList.remove('wiggle');
+                }, 200);
+            });
+        })();
+    </script>
+</body>
+</html>

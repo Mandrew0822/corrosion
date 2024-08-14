@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd src
+cargo build --release
+sudo cp ../target/release/corrosion /usr/local/bin
+echo "done"
