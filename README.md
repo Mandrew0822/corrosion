@@ -15,7 +15,7 @@ This is a simple web server implemented in Rust. It listens on `127.0.0.1:8080` 
     git clone https://github.com/Mandrew0822/corrosion
     cd corrosion
     chmod +x build
-    build
+    ./build
     
 ### Example
 
